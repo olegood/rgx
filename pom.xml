@@ -22,6 +22,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,6 +45,7 @@
                             <goal>build-info</goal>
                         </goals>
                         <configuration>
+                            <excludeInfoProperties>group,time</excludeInfoProperties>
                             <additionalProperties>
                                 <java.version>${java.version}</java.version>
                             </additionalProperties>
