@@ -30,7 +30,7 @@ Organization
 - project
 - title
 - content
-- status (draft, in review, approved, rejected, archived)
+- status (draft, in review, approved, rejected, terminated, archived)
 - created by
 - approved by
 - approved at
