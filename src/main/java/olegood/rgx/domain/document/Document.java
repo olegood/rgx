@@ -1,9 +1,9 @@
 package olegood.rgx.domain.document;
 
-import lombok.Getter;
+import lombok.Data;
 import olegood.rgx.domain.project.Project;
 
-@Getter
+@Data
 public class Document {
 
     private Long id;
