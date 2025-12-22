@@ -6,6 +6,7 @@ public enum DocumentAction {
     APPROVE,
     REJECT,
     TERMINATE,
+    REOPEN,
     ARCHIVE
 
 }

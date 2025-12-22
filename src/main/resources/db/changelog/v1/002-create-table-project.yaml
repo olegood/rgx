@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-table-project
+      author: Oleg Anastassov
+      changes:
+        - createTable:
+            tableName: PROJECT
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: PK_PROJECT
+              - column:
+                  name: ORGANIZATION_ID
+                  type: bigint
+              - column:
+                  name: NAME
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: COMPLIANCE_LEVEL
+                  type: varchar(10)
+                  defaultValue: MEDIUM
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: PROJECT
+            baseColumnNames: ORGANIZATION_ID
+            constraintName: FK_PROJECT_ORGANIZATION_ID
+            referencedTableName: ORGANIZATION
+            referencedColumnNames: ID
+      rollback:
+        - dropTable:
+            tableName: PROJECT

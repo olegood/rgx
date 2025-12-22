@@ -21,9 +21,9 @@ class DocumentStatusTest {
     }
 
     @Test
-    void statusApprovedMakesAvailableArchiveAndTerminate() {
+    void statusApprovedMakesAvailableArchiveReopenAndTerminate() {
         // expect
-        assertThat(APPROVED.getAvailableActions()).containsOnly(ARCHIVE, TERMINATE);
+        assertThat(APPROVED.getAvailableActions()).containsOnly(ARCHIVE, REOPEN, TERMINATE);
     }
 
     @Test
@@ -33,9 +33,9 @@ class DocumentStatusTest {
     }
 
     @Test
-    void statusTerminatedHasNoAvailableActions() {
+    void statusTerminatedMakesAvailableReopen() {
         // expect
-        assertThat(TERMINATED.getAvailableActions()).isEmpty();
+        assertThat(TERMINATED.getAvailableActions()).containsOnly(REOPEN);
     }
 
 }

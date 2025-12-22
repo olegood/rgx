@@ -10,7 +10,7 @@ import static olegood.rgx.domain.document.DocumentAction.*;
  * Enum representing the various statuses a document can have throughout its lifecycle.
  * Each status reflects a different stage in the document's workflow,
  * dictating possible actions that can be performed in that state.
- *
+ * <p>
  * The allowed actions for each state are encapsulated in the enum constants,
  * making it easy to determine what actions are available depending on the current status.
  */
@@ -35,20 +35,26 @@ public enum DocumentStatus {
     IN_REVIEW(APPROVE, REJECT, TERMINATE),
 
     /**
-     * Represents the state of a document that has been approved, indicating
-     * a finalized and accepted status for the document.
-     * In this state, the document's available actions include:
-     * - ARCHIVE: To archive the document, marking it as stored for record-keeping.
-     * - TERMINATE: To terminate the document, halting any further actions or activity associated with it.
+     * Represents the state of a document that has been approved. This state indicates
+     * that the document has passed through the review process and is formally accepted.
+     *
+     * In the APPROVED state, the following actions are allowed:
+     * - ARCHIVE: To move the document to an archived state for record-keeping.
+     * - REOPEN: To reopen the document, allowing further discussion or changes.
+     * - TERMINATE: To terminate the document, ending its lifecycle.
      */
-    APPROVED(ARCHIVE, TERMINATE),
+    APPROVED(ARCHIVE, REOPEN, TERMINATE),
 
     /**
-     * Represents the final state of a document, indicating that no further actions
-     * or transitions are possible for the document. Once a document reaches this
-     * state, it is considered permanently closed or ceased.
+     * Represents the TERMINATED state of a document. This state indicates that
+     * the document’s lifecycle is considered complete, with no further actions
+     * or transitions permitted except for reopening the document.
+     *
+     * The TERMINATED state allows the following action:
+     * - REOPEN: To transition the document back to an active state, enabling it
+     *   for further workflows or edits.
      */
-    TERMINATED,
+    TERMINATED(REOPEN),
 
     /**
      * Represents the state of a document that has been archived, signifying that
@@ -62,6 +68,10 @@ public enum DocumentStatus {
 
     DocumentStatus(DocumentAction... actions) {
         this.availableActions = Set.of(actions);
+    }
+
+    public boolean isActionAllowed(DocumentAction action) {
+        return availableActions.contains(action);
     }
 
 }

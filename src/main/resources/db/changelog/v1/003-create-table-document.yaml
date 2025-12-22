@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-table-document
+      author: Oleg Anastassov
+      changes:
+        - createTable:
+            tableName: DOCUMENT
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: PK_DOCUMENT
+              - column:
+                  name: PROJECT_ID
+                  type: bigint
+              - column:
+                  name: TITLE
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CONTENT
+                  type: varchar(255)
+              - column:
+                  name: OWNER
+                  type: varchar(255)
+              - column:
+                  name: STATUS
+                  type: varchar(15)
+                  defaultValue: DRAFT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: DOCUMENT
+            baseColumnNames: PROJECT_ID
+            constraintName: FK_DOCUMENT_PROJECT_ID
+            referencedTableName: PROJECT
+            referencedColumnNames: ID
+      rollback:
+        - dropTable:
+            tableName: DOCUMENT

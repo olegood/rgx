@@ -1,9 +1,11 @@
-package olegood.rgx.service;
+package olegood.rgx.service.document;
 
 import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentRepository;
 import olegood.rgx.domain.document.DocumentStatus;
+import olegood.rgx.event.DocumentSubmittedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import static olegood.rgx.domain.document.DocumentStatus.*;
@@ -13,15 +15,24 @@ import static olegood.rgx.domain.document.DocumentStatus.*;
 public class DocumentStatusServiceImpl implements DocumentStatusService {
 
     private final DocumentRepository documentRepository;
+    private final ApplicationEventPublisher events;
 
     @Override
     public void submit(Document document) {
         changeStatus(document, IN_REVIEW);
+        events.publishEvent(new DocumentSubmittedEvent(document.getId()));
     }
 
     @Override
     public void approve(Document document) {
         changeStatus(document, APPROVED);
+    }
+
+    @Override
+    public void approveAutomatically(Document document) {
+        // @PreAuthorize self-invocation.
+        // The annotation will be ignored at runtime.
+        approve(document);
     }
 
     @Override
@@ -41,9 +52,11 @@ public class DocumentStatusServiceImpl implements DocumentStatusService {
 
     @Override
     public void reopen(Document document) {
-        switch (document.getStatus()) {
+        var status = document.getStatus();
+        switch (status) {
             case APPROVED -> changeStatus(document, IN_REVIEW);
             case TERMINATED -> changeStatus(document, DRAFT);
+            default -> throw new IllegalStateException("Cannot reopen document in status " + status);
         }
     }
 
