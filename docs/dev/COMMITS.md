@@ -1,4 +1,4 @@
-# Developer’s Guide: Conventional Commits
+# Developer's Guide: Conventional Commits
 
 ## Overview
 

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-organization
+      author: Oleg Anastassov
+      changes:
+        - createTable:
+            tableName: ORGANIZATION
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: NAME
+                  type: varchar(255)
+              - column:
+                  name: STATUS
+                  type: varchar(10)
+      rollback:
+        - dropTable:
+            tableName: ORGANIZATION
