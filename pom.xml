@@ -83,17 +83,21 @@
                 <version>0.8.14</version>
                 <executions>
                     <execution>
-                        <id>coverage-initialize</id>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>coverage-report</id>
-                        <phase>post-integration-test</phase>
+                        <id>report</id>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <formats>
+                                <format>XML</format>
+                            </formats>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
