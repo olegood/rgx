@@ -52,7 +52,7 @@ public class DocumentStatusServiceImpl implements DocumentStatusService {
     switch (status) {
       case APPROVED -> changeStatus(document, IN_REVIEW);
       case TERMINATED -> changeStatus(document, DRAFT);
-      default -> throw new IllegalStateException("Cannot reopen document in status " + status);
+      default -> throw new IllegalArgumentException("Cannot reopen document in status " + status);
     }
   }
 
