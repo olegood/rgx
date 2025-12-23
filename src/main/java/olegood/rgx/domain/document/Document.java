@@ -3,10 +3,12 @@ package olegood.rgx.domain.document;
 import jakarta.persistence.*;
 import java.util.function.Predicate;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import olegood.rgx.domain.project.Project;
 import olegood.rgx.predicate.IsActionAllowed;
 import olegood.rgx.predicate.document.status.CanBeSubmitted;
 
+@Accessors(chain = true)
 @Data
 @Entity
 @Table(name = "DOCUMENT")
