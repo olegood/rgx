@@ -2,7 +2,9 @@ package olegood.rgx.service.document.status.impl;
 
 import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.when;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.service.document.DocumentStatusService;

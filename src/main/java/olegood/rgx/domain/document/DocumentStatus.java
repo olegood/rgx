@@ -1,6 +1,11 @@
 package olegood.rgx.domain.document;
 
-import static olegood.rgx.domain.document.DocumentAction.*;
+import static olegood.rgx.domain.document.DocumentAction.APPROVE;
+import static olegood.rgx.domain.document.DocumentAction.ARCHIVE;
+import static olegood.rgx.domain.document.DocumentAction.REJECT;
+import static olegood.rgx.domain.document.DocumentAction.REOPEN;
+import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
+import static olegood.rgx.domain.document.DocumentAction.TERMINATE;
 
 import java.util.Set;
 import lombok.Getter;

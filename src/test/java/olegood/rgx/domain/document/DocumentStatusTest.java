@@ -1,7 +1,16 @@
 package olegood.rgx.domain.document;
 
-import static olegood.rgx.domain.document.DocumentAction.*;
-import static olegood.rgx.domain.document.DocumentStatus.*;
+import static olegood.rgx.domain.document.DocumentAction.APPROVE;
+import static olegood.rgx.domain.document.DocumentAction.ARCHIVE;
+import static olegood.rgx.domain.document.DocumentAction.REJECT;
+import static olegood.rgx.domain.document.DocumentAction.REOPEN;
+import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
+import static olegood.rgx.domain.document.DocumentAction.TERMINATE;
+import static olegood.rgx.domain.document.DocumentStatus.APPROVED;
+import static olegood.rgx.domain.document.DocumentStatus.ARCHIVED;
+import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
+import static olegood.rgx.domain.document.DocumentStatus.IN_REVIEW;
+import static olegood.rgx.domain.document.DocumentStatus.TERMINATED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 

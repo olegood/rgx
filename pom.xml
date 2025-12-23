@@ -87,6 +87,7 @@
                         <trimTrailingWhitespace/>
                         <endWithNewline/>
                         <removeUnusedImports/>
+                        <forbidWildcardImports />
                         <googleJavaFormat>
                             <formatJavadoc>false</formatJavadoc>
                         </googleJavaFormat>

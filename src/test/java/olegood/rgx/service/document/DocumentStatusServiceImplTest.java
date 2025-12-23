@@ -1,6 +1,10 @@
 package olegood.rgx.service.document;
 
-import static olegood.rgx.domain.document.DocumentStatus.*;
+import static olegood.rgx.domain.document.DocumentStatus.APPROVED;
+import static olegood.rgx.domain.document.DocumentStatus.ARCHIVED;
+import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
+import static olegood.rgx.domain.document.DocumentStatus.IN_REVIEW;
+import static olegood.rgx.domain.document.DocumentStatus.TERMINATED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.verify;

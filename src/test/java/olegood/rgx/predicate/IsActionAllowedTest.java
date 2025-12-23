@@ -4,7 +4,7 @@ import static olegood.rgx.domain.document.DocumentAction.APPROVE;
 import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
 import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import olegood.rgx.domain.document.Document;
 import org.junit.jupiter.api.Test;

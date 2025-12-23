@@ -1,6 +1,8 @@
 package olegood.rgx.predicate.document.status;
 
-import static olegood.rgx.domain.document.DocumentStatus.*;
+import static olegood.rgx.domain.document.DocumentStatus.APPROVED;
+import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
+import static olegood.rgx.domain.document.DocumentStatus.IN_REVIEW;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import olegood.rgx.domain.document.Document;
