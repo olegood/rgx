@@ -14,8 +14,11 @@
     <version>0.1.0-SNAPSHOT</version>
 
     <properties>
-        <sonar.organization>olegood</sonar.organization>
         <java.version>21</java.version>
+
+        <sonar.projectKey>olegood:rgx</sonar.projectKey>
+        <sonar.organization>olegood</sonar.organization>
+        <sonar.coverage.exclusions>**/*Application.java</sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
@@ -87,7 +90,7 @@
                         <trimTrailingWhitespace/>
                         <endWithNewline/>
                         <removeUnusedImports/>
-                        <forbidWildcardImports />
+                        <forbidWildcardImports/>
                         <googleJavaFormat>
                             <formatJavadoc>false</formatJavadoc>
                         </googleJavaFormat>
