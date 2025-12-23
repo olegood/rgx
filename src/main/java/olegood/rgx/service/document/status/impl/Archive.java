@@ -11,16 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Archive implements DocumentOperation {
 
-    private final DocumentStatusService documentStatusService;
+  private final DocumentStatusService documentStatusService;
 
-    @Override
-    public DocumentAction associatedAction() {
-        return DocumentAction.ARCHIVE;
-    }
+  @Override
+  public DocumentAction associatedAction() {
+    return DocumentAction.ARCHIVE;
+  }
 
-    @Override
-    public void execute(Document document) {
-        documentStatusService.archive(document);
-    }
-
+  @Override
+  public void execute(Document document) {
+    documentStatusService.archive(document);
+  }
 }

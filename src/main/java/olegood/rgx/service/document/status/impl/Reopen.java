@@ -11,16 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Reopen implements DocumentOperation {
 
-    private final DocumentStatusService documentStatusService;
+  private final DocumentStatusService documentStatusService;
 
-    @Override
-    public DocumentAction associatedAction() {
-        return DocumentAction.REOPEN;
-    }
+  @Override
+  public DocumentAction associatedAction() {
+    return DocumentAction.REOPEN;
+  }
 
-    @Override
-    public void execute(Document document) {
-        documentStatusService.reopen(document);
-    }
-
+  @Override
+  public void execute(Document document) {
+    documentStatusService.reopen(document);
+  }
 }

@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Terminate implements DocumentOperation {
 
-    private final DocumentStatusService documentStatusService;
+  private final DocumentStatusService documentStatusService;
 
-    @Override
-    public DocumentAction associatedAction() {
-        return DocumentAction.TERMINATE;
-    }
+  @Override
+  public DocumentAction associatedAction() {
+    return DocumentAction.TERMINATE;
+  }
 
-    @Override
-    public void execute(Document document) {
-        documentStatusService.terminate(document);
-    }
+  @Override
+  public void execute(Document document) {
+    documentStatusService.terminate(document);
+  }
 }

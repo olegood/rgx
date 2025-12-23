@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DocumentOutboxService {
 
-    @EventListener
-    public void handleDocumentSubmitted(DocumentSubmittedEvent event) {
-        log.info("Document submitted: {}", event.documentId());
-    }
-
+  @EventListener
+  public void handleDocumentSubmitted(DocumentSubmittedEvent event) {
+    log.info("Document submitted: {}", event.documentId());
+  }
 }

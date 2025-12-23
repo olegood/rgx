@@ -9,17 +9,15 @@ import olegood.rgx.domain.Organization;
 @Table(name = "PROJECT")
 public class Project {
 
-    @Id
-    private Long id;
+  @Id private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORGANIZATION_ID")
-    private Organization organization;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ORGANIZATION_ID")
+  private Organization organization;
 
-    @Column(name = "NAME")
-    private String name;
+  @Column(name = "NAME")
+  private String name;
 
-    @Column(name = "COMPLIANCE_LEVEL")
-    private ComplianceLevel complianceLevel;
-
+  @Column(name = "COMPLIANCE_LEVEL")
+  private ComplianceLevel complianceLevel;
 }

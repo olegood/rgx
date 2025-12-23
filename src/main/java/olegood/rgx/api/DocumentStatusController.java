@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/documents/{documentId}/status")
 public class DocumentStatusController {
 
-    private final DocumentStatusHandler documentStatusHandler;
+  private final DocumentStatusHandler documentStatusHandler;
 
-    @PutMapping
-    public void handleDocumentAction(@PathVariable("documentId") Long id, @RequestParam DocumentAction action) {
-        documentStatusHandler.handleAction(id, action);
-    }
+  @PutMapping
+  public void handleDocumentAction(
+      @PathVariable("documentId") Long id, @RequestParam DocumentAction action) {
+    documentStatusHandler.handleAction(id, action);
+  }
 }

@@ -11,16 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Reject implements DocumentOperation {
 
-    private final DocumentStatusService documentStatusService;
+  private final DocumentStatusService documentStatusService;
 
-    @Override
-    public DocumentAction associatedAction() {
-        return DocumentAction.REJECT;
-    }
+  @Override
+  public DocumentAction associatedAction() {
+    return DocumentAction.REJECT;
+  }
 
-    @Override
-    public void execute(Document document) {
-        documentStatusService.reject(document);
-    }
-
+  @Override
+  public void execute(Document document) {
+    documentStatusService.reject(document);
+  }
 }

@@ -11,16 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Approve implements DocumentOperation {
 
-    private final DocumentStatusService documentStatusService;
+  private final DocumentStatusService documentStatusService;
 
-    @Override
-    public DocumentAction associatedAction() {
-        return DocumentAction.APPROVE;
-    }
+  @Override
+  public DocumentAction associatedAction() {
+    return DocumentAction.APPROVE;
+  }
 
-    @Override
-    public void execute(Document document) {
-        documentStatusService.approve(document);
-    }
-
+  @Override
+  public void execute(Document document) {
+    documentStatusService.approve(document);
+  }
 }

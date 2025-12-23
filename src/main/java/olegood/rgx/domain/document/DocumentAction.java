@@ -1,12 +1,10 @@
 package olegood.rgx.domain.document;
 
 public enum DocumentAction {
-
-    SUBMIT,
-    APPROVE,
-    REJECT,
-    TERMINATE,
-    REOPEN,
-    ARCHIVE
-
+  SUBMIT,
+  APPROVE,
+  REJECT,
+  TERMINATE,
+  REOPEN,
+  ARCHIVE
 }

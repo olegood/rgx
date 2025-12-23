@@ -1,10 +1,9 @@
 package olegood.rgx.domain.document;
 
-import lombok.Getter;
+import static olegood.rgx.domain.document.DocumentAction.*;
 
 import java.util.Set;
-
-import static olegood.rgx.domain.document.DocumentAction.*;
+import lombok.Getter;
 
 /**
  * Enum representing the various statuses a document can have throughout its lifecycle.
@@ -17,61 +16,60 @@ import static olegood.rgx.domain.document.DocumentAction.*;
 @Getter
 public enum DocumentStatus {
 
-    /**
-     * Represents the initial state of a document where it is created but not yet submitted for review.
-     * In this state, the document's available actions include:
-     * - SUBMIT: To submit the document for review.
-     * - TERMINATE: To terminate the document, halting any further activity.
-     */
-    DRAFT(SUBMIT, TERMINATE),
+  /**
+   * Represents the initial state of a document where it is created but not yet submitted for review.
+   * In this state, the document's available actions include:
+   * - SUBMIT: To submit the document for review.
+   * - TERMINATE: To terminate the document, halting any further activity.
+   */
+  DRAFT(SUBMIT, TERMINATE),
 
-    /**
-     * Represents the state of a document that has been submitted for review and is awaiting a decision.
-     * In this state, the document's available actions include:
-     * - APPROVE: To approve the document, marking it as finalized and accepted.
-     * - REJECT: To reject the document, requiring further revisions or halting its progress.
-     * - TERMINATE: To terminate the document, stopping any further actions.
-     */
-    IN_REVIEW(APPROVE, REJECT, TERMINATE),
+  /**
+   * Represents the state of a document that has been submitted for review and is awaiting a decision.
+   * In this state, the document's available actions include:
+   * - APPROVE: To approve the document, marking it as finalized and accepted.
+   * - REJECT: To reject the document, requiring further revisions or halting its progress.
+   * - TERMINATE: To terminate the document, stopping any further actions.
+   */
+  IN_REVIEW(APPROVE, REJECT, TERMINATE),
 
-    /**
-     * Represents the state of a document that has been approved. This state indicates
-     * that the document has passed through the review process and is formally accepted.
-     *
-     * In the APPROVED state, the following actions are allowed:
-     * - ARCHIVE: To move the document to an archived state for record-keeping.
-     * - REOPEN: To reopen the document, allowing further discussion or changes.
-     * - TERMINATE: To terminate the document, ending its lifecycle.
-     */
-    APPROVED(ARCHIVE, REOPEN, TERMINATE),
+  /**
+   * Represents the state of a document that has been approved. This state indicates
+   * that the document has passed through the review process and is formally accepted.
+   *
+   * In the APPROVED state, the following actions are allowed:
+   * - ARCHIVE: To move the document to an archived state for record-keeping.
+   * - REOPEN: To reopen the document, allowing further discussion or changes.
+   * - TERMINATE: To terminate the document, ending its lifecycle.
+   */
+  APPROVED(ARCHIVE, REOPEN, TERMINATE),
 
-    /**
-     * Represents the TERMINATED state of a document. This state indicates that
-     * the document’s lifecycle is considered complete, with no further actions
-     * or transitions permitted except for reopening the document.
-     *
-     * The TERMINATED state allows the following action:
-     * - REOPEN: To transition the document back to an active state, enabling it
-     *   for further workflows or edits.
-     */
-    TERMINATED(REOPEN),
+  /**
+   * Represents the TERMINATED state of a document. This state indicates that
+   * the document’s lifecycle is considered complete, with no further actions
+   * or transitions permitted except for reopening the document.
+   *
+   * The TERMINATED state allows the following action:
+   * - REOPEN: To transition the document back to an active state, enabling it
+   *   for further workflows or edits.
+   */
+  TERMINATED(REOPEN),
 
-    /**
-     * Represents the state of a document that has been archived, signifying that
-     * it is stored for record-keeping purposes and no further modifications
-     * or transitions are allowed. This is a final state for the document,
-     * indicating completion of its lifecycle.
-     */
-    ARCHIVED;
+  /**
+   * Represents the state of a document that has been archived, signifying that
+   * it is stored for record-keeping purposes and no further modifications
+   * or transitions are allowed. This is a final state for the document,
+   * indicating completion of its lifecycle.
+   */
+  ARCHIVED;
 
-    private final Set<DocumentAction> availableActions;
+  private final Set<DocumentAction> availableActions;
 
-    DocumentStatus(DocumentAction... actions) {
-        this.availableActions = Set.of(actions);
-    }
+  DocumentStatus(DocumentAction... actions) {
+    this.availableActions = Set.of(actions);
+  }
 
-    public boolean isActionAllowed(DocumentAction action) {
-        return availableActions.contains(action);
-    }
-
+  public boolean isActionAllowed(DocumentAction action) {
+    return availableActions.contains(action);
+  }
 }
