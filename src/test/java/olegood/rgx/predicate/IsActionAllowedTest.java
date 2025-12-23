@@ -23,7 +23,7 @@ class IsActionAllowedTest {
   @Test
   void shouldReturnFalseIfActionIsNotAllowed() {
     // when
-    Document document = new Document().setStatus(DRAFT);
+    var document = new Document().setStatus(DRAFT);
 
     // then
     assertThat(new IsActionAllowed(APPROVE).test(document)).isFalse();
