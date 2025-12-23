@@ -24,14 +24,14 @@ public interface DocumentOperation {
     return document -> document.isActionAllowed(associatedAction());
   }
 
-  default void validateAllowed(Document document) {
+  private void validateAllowed(Document document) {
     var isNotAllowed = isAllowed().negate();
     if (isNotAllowed.test(document)) {
       throw new UnsupportedOperationException("Operation not allowed: " + associatedAction());
     }
   }
 
-  default void validateEligible(Document document) {
+  private void validateEligible(Document document) {
     var isNotEligible = isEligible().negate();
     if (isNotEligible.test(document)) {
       throw new UnsupportedOperationException("Operation not eligible: " + associatedAction());
