@@ -3,7 +3,6 @@ package olegood.rgx.service.document;
 import static olegood.rgx.domain.document.DocumentStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 import olegood.rgx.domain.document.Document;
