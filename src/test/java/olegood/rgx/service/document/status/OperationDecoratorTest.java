@@ -2,6 +2,7 @@ package olegood.rgx.service.document.status;
 
 import static olegood.rgx.domain.document.DocumentAction.TERMINATE;
 import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,6 +22,18 @@ class OperationDecoratorTest {
   @Mock private DocumentStatusService documentStatusService;
 
   @Mock private Operation operation;
+
+  @Test
+  void shouldDelegateAssociatedActionAsIs() {
+    // given
+    var approve = new Approve(documentStatusService);
+
+    // when
+    var decorator = new OperationDecorator(new Approve(documentStatusService));
+
+    // then
+    assertThat(decorator.associatedAction()).isEqualTo(approve.associatedAction());
+  }
 
   @Test
   void shouldThrowExceptionIfNotAllowed() {
