@@ -12,7 +12,7 @@ class CanBeSubmittedTest {
   @Test
   void shouldReturnTrueWhenDocumentInDraft() {
     // when
-    var document = new Document().setStatus(DRAFT);
+    var document = new Document().setStatus(DRAFT).setTitle("<title>");
 
     // then
     assertThat(new CanBeSubmitted().test(document)).isTrue();

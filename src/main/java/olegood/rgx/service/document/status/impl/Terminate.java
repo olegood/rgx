@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
 import olegood.rgx.service.document.DocumentStatusService;
-import olegood.rgx.service.document.status.DocumentOperation;
+import olegood.rgx.service.document.status.Operation;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class Terminate implements DocumentOperation {
+public class Terminate implements Operation {
 
   private final DocumentStatusService documentStatusService;
 
