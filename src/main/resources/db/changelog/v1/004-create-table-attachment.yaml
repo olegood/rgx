@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-table-attachment
+      author: Oleg Anastassov
+      changes:
+        - createTable:
+            tableName: ATTACHMENT
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: PK_ATTACHMENT
+              - column:
+                  name: DOCUMENT_ID
+                  type: bigint
+              - column:
+                  name: FILE_NAME
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CONTENT_TYPE
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LOCATION
+                  type: varchar(255)
+              - column:
+                  name: CHECKSUM
+                  type: varchar(255)
+              - column:
+                  name: SIZE
+                  type: bigint
+              - column:
+                  name: UPLOADED_AT
+                  type: varchar(15)
+        - addForeignKeyConstraint:
+            baseTableName: ATTACHMENT
+            baseColumnNames: DOCUMENT_ID
+            constraintName: FK_ATTACHMENT_DOCUMENT_ID
+            referencedTableName: DOCUMENT
+            referencedColumnNames: ID
+      rollback:
+        - dropTable:
+            tableName: ATTACHMENT
