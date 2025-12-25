@@ -1,4 +1,9 @@
 spring:
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 management:
