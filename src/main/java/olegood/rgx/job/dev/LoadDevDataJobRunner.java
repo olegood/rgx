@@ -5,8 +5,10 @@ import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("dev")
 @RequiredArgsConstructor
 @Component
 public class LoadDevDataJobRunner implements CommandLineRunner {
