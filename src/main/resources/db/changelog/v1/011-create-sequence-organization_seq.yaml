@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011-create-sequence-organization_seq
+      author: Oleg Anastassov
+      changes:
+        - createSequence:
+            sequenceName: organization_seq
+            startValue: 100
+            incrementBy: 1
+      rollback:
+        - dropSequence:
+            sequenceName: organization_seq

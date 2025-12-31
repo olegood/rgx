@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-table-organization
+      id: 010-create-table-organization
       author: Oleg Anastassov
       changes:
         - createTable:
@@ -14,31 +14,35 @@ databaseChangeLog:
                     primaryKeyName: PK_ORGANIZATION
               - column:
                   name: CODE
-                  type: varchar(255)
+                  type: varchar(15)
                   constraints:
                     unique: true
                     nullable: false
                     uniqueConstraintName: UK_ORGANIZATION_CODE
               - column:
                   name: NAME
-                  type: varchar(255)
+                  type: varchar(64)
                   constraints:
                     nullable: false
               - column:
                   name: WEBSITE
-                  type: varchar(255)
+                  type: varchar(128)
               - column:
                   name: COUNTRY
-                  type: varchar(255)
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
               - column:
                   name: DESCRIPTION
-                  type: varchar(255)
+                  type: varchar(300)
               - column:
                   name: FOUNDED
                   type: int
               - column:
                   name: INDUSTRY
-                  type: varchar(255)
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
               - column:
                   name: NUMBER_OF_EMPLOYEES
                   type: int

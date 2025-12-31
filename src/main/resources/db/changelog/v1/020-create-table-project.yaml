@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-create-table-project
+      id: 020-create-table-project
       author: Oleg Anastassov
       changes:
         - createTable:
