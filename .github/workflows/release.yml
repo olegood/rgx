@@ -1,14 +1,9 @@
 name: Maven Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      releaseVersion:
-        description: "Release version (e.g. 0.4.0)"
-        required: true
-      developmentVersion:
-        description: "Next development version (e.g. 0.4.1-SNAPSHOT)"
-        required: true
+  push:
+    branches:
+      - main
 
 permissions:
   packages: write
@@ -36,7 +31,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn -B release:prepare \
-            -DreleaseVersion=${{ inputs.releaseVersion }} \
-            -DdevelopmentVersion=${{ inputs.developmentVersion }}
+          mvn -B release:prepare
           mvn -B release:perform

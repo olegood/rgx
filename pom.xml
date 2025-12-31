@@ -11,7 +11,7 @@
 
     <groupId>olegood</groupId>
     <artifactId>rgx</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <sonar.organization>olegood</sonar.organization>
@@ -153,13 +153,14 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <releaseProfiles>release</releaseProfiles>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <pushChanges>true</pushChanges>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/olegood/rgx.git</developerConnection>
+    </scm>
 
     <distributionManagement>
         <repository>
