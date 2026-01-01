@@ -1,4 +1,4 @@
-package olegood.rgx.api;
+package olegood.rgx.api.document;
 
 import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.DocumentAction;
