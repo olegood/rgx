@@ -1,0 +1,29 @@
+meta {
+  name: Delete Organization
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{host}}/api/organizations/107
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "code": "RT5695FE2cfDa5T",
+    "name": "Bedrock2",
+    "website": "http://www.bdrock.com/",
+    "country": "Kaz",
+    "founded": 2020,
+    "industry": "Online Publishingalsjhf laskjhf laskjdfh aslkdjfh asdf asfd ",
+    "numberOfEmployees": 455,
+    "status": "ACTIVE"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Add Organization
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/api/organizations
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 400,
+    "code": "RT5fdEFE2cfDa5T",
+    "name": "Bedrock2",
+    "website": "http://www.bdrock.com/",
+    "country": "Kaz",
+    "founded": 2020,
+  
+    "numberOfEmployees": 455,
+    "status": "ACTIVE"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
