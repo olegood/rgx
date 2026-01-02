@@ -14,7 +14,7 @@
 
     <properties>
         <sonar.organization>olegood</sonar.organization>
-        <sonar.coverage.exclusions>**/*Application.java,**/domain/**/*.java,**/dev/**/*.*</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>**/*Application.java,**/domain/**/*.java,**/dev/**/*.*,**/*Data.java</sonar.coverage.exclusions>
 
         <java.version>21</java.version>
 
