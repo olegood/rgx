@@ -1,223 +1,230 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.1</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.0.1</version>
+    <relativePath/>
+    <!-- lookup parent from repository -->
+  </parent>
 
-    <groupId>olegood</groupId>
-    <artifactId>rgx</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+  <groupId>olegood</groupId>
+  <artifactId>rgx</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
 
-    <properties>
-        <sonar.organization>olegood</sonar.organization>
-        <sonar.coverage.exclusions>**/*Application.java,**/domain/**/*.java,**/dev/**/*.*,**/*Data.java</sonar.coverage.exclusions>
+  <developers>
+    <developer>
+      <id>olegood</id>
+      <name>Oleg Anastassov</name>
+      <roles>
+        <role>Architect</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Madrid</timezone>
+    </developer>
+  </developers>
 
-        <java.version>21</java.version>
-
-        <mapstruct.version>1.6.3</mapstruct.version>
-        <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
-
-        <spotless.version>3.1.0</spotless.version>
-        <jacoco.version>0.8.14</jacoco.version>
-
-        <!-- Scope: test -->
-        <archunit.version>1.4.1</archunit.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-liquibase</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.batch</groupId>
-            <artifactId>spring-batch-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5</artifactId>
-            <version>${archunit.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>${lombok.mapstruct.binding.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                        <configuration>
-                            <excludeInfoProperties>group,time</excludeInfoProperties>
-                            <additionalProperties>
-                                <java.version>${java.version}</java.version>
-                            </additionalProperties>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.diffplug.spotless</groupId>
-                <artifactId>spotless-maven-plugin</artifactId>
-                <version>${spotless.version}</version>
-                <configuration>
-                    <java>
-                        <trimTrailingWhitespace />
-                        <endWithNewline />
-                        <removeUnusedImports />
-                        <forbidWildcardImports />
-                        <googleJavaFormat>
-                            <formatJavadoc>false</formatJavadoc>
-                        </googleJavaFormat>
-                    </java>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>validate</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <formats>
-                                <format>XML</format>
-                            </formats>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <scm>
-        <developerConnection>scm:git:https://github.com/olegood/rgx.git</developerConnection>
-      <tag>HEAD</tag>
+  <scm>
+    <developerConnection>scm:git:https://github.com/olegood/rgx.git</developerConnection>
+    <tag>HEAD</tag>
   </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/olegood/rgx</url>
-        </repository>
-    </distributionManagement>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/olegood/rgx</url>
+    </repository>
+  </distributionManagement>
 
-    <developers>
-        <developer>
-            <id>olegood</id>
-            <name>Oleg Anastassov</name>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-            <timezone>Europe/Madrid</timezone>
-        </developer>
-    </developers>
+  <properties>
+    <sonar.organization>olegood</sonar.organization>
+    <sonar.coverage.exclusions>**/*Application.java,**/domain/**/*.java,**/dev/**/*.*,**/*Data.java</sonar.coverage.exclusions>
+
+    <java.version>21</java.version>
+
+    <mapstruct.version>1.6.3</mapstruct.version>
+    <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+
+    <spotless.version>3.1.0</spotless.version>
+    <jacoco.version>0.8.14</jacoco.version>
+
+    <!-- Scope: test -->
+    <archunit.version>1.4.1</archunit.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-liquibase</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-batch</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-batch-jdbc</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${mapstruct.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.batch</groupId>
+      <artifactId>spring-batch-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5</artifactId>
+      <version>${archunit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok-mapstruct-binding</artifactId>
+              <version>${lombok.mapstruct.binding.version}</version>
+            </path>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${mapstruct.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build-info</goal>
+            </goals>
+            <configuration>
+              <excludeInfoProperties>group,time</excludeInfoProperties>
+              <additionalProperties>
+                <java.version>${java.version}</java.version>
+              </additionalProperties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless.version}</version>
+        <configuration>
+          <pom>
+            <sortPom>
+              <encoding>UTF-8</encoding>
+              <endWithNewline>true</endWithNewline>
+            </sortPom>
+          </pom>
+          <java>
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+            <removeUnusedImports/>
+            <forbidWildcardImports/>
+            <googleJavaFormat>
+              <formatJavadoc>false</formatJavadoc>
+            </googleJavaFormat>
+          </java>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <formats>
+                <format>XML</format>
+              </formats>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
