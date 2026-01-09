@@ -3,31 +3,31 @@ package olegood.rgx.service.document.status;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
 
-public record OperationDecorator(Operation delegate) implements Operation {
+public record OperationDecorator(Operation operation) implements Operation {
 
   @Override
   public DocumentAction associatedAction() {
-    return delegate.associatedAction();
+    return operation.associatedAction();
   }
 
   @Override
   public void execute(Document document) {
-    validateAllowed(document);
-    validateEligible(document);
-    delegate.execute(document);
+    ensureOperationAllowed(document);
+    ensureOperationEligible(document);
+    operation.execute(document);
   }
 
-  private void validateAllowed(Document document) {
-    if (!document.isActionAllowed(delegate.associatedAction())) {
+  private void ensureOperationAllowed(Document document) {
+    if (!document.isActionAllowed(operation.associatedAction())) {
       throw new UnsupportedOperationException(
-          "Operation not allowed: " + delegate.associatedAction());
+          "Operation not allowed: " + operation.associatedAction());
     }
   }
 
-  private void validateEligible(Document document) {
-    if (!delegate.isEligible().test(document)) {
+  private void ensureOperationEligible(Document document) {
+    if (!operation.isEligible().test(document)) {
       throw new UnsupportedOperationException(
-          "Operation not eligible: " + delegate.associatedAction());
+          "Operation not eligible: " + operation.associatedAction());
     }
   }
 }
