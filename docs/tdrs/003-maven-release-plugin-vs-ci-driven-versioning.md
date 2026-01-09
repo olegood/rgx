@@ -1,4 +1,4 @@
-# Maven Release Plugin vs. CI-driven Automatic Versioning
+# 003: Maven Release Plugin vs. CI-driven Versioning
 
 **Status:** Accepted \
 **Date:** Dec 31, 2025 \

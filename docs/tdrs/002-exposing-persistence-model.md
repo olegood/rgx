@@ -1,4 +1,4 @@
-# Exposing persistence models via Spring Data REST vs. manually implemented controllers
+# 002: Exposing persistence models via Spring Data REST vs. manually implemented controllers
 
 **Status:** Accepted \
 **Date:** Dec 30, 2025 \
