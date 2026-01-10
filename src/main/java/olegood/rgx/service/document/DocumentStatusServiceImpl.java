@@ -10,17 +10,23 @@ import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentRepository;
 import olegood.rgx.domain.document.DocumentStatus;
+import olegood.rgx.event.document.DocumentSubmittedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Component
 public class DocumentStatusServiceImpl implements DocumentStatusService {
 
   private final DocumentRepository documentRepository;
+  private final ApplicationEventPublisher events;
 
   @Override
   public void submit(Document document) {
     changeStatus(document, IN_REVIEW);
+    events.publishEvent(new DocumentSubmittedEvent(document));
   }
 
   @Override
