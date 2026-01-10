@@ -38,7 +38,7 @@ class OperationDecoratorTest {
   @Test
   void shouldThrowExceptionIfNotAllowed() {
     // given
-    var document = new Document().setStatus(DRAFT);
+    var document = new Document().setId(42L).setStatus(DRAFT);
 
     // when
     var approve = new OperationDecorator(new Approve(documentStatusService));
@@ -46,13 +46,14 @@ class OperationDecoratorTest {
     // then
     assertThatExceptionOfType(UnsupportedOperationException.class)
         .isThrownBy(() -> approve.execute(document))
-        .withMessage("Operation not allowed: APPROVE");
+        .withMessage(
+            "Cannot execute operation 'APPROVE' on document [ID: 42]: current status 'DRAFT' does not allow this action.");
   }
 
   @Test
   void shouldThrowExceptionIfNotEligible() {
     // given
-    var document = new Document().setStatus(DRAFT);
+    var document = new Document().setId(56L).setStatus(DRAFT);
 
     // when
     var submit = new OperationDecorator(new Submit(documentStatusService));
@@ -60,7 +61,8 @@ class OperationDecoratorTest {
     // then
     assertThatExceptionOfType(UnsupportedOperationException.class)
         .isThrownBy(() -> submit.execute(document))
-        .withMessage("Operation not eligible: SUBMIT");
+        .withMessage(
+            "Document [ID: 56] does not meet the minimal criteria to be processed via action: SUBMIT");
   }
 
   @Test

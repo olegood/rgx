@@ -20,14 +20,16 @@ public record OperationDecorator(Operation operation) implements Operation {
   private void ensureOperationIsAllowed(Document document) {
     if (!document.isActionAllowed(operation.associatedAction())) {
       throw new UnsupportedOperationException(
-          "Operation not allowed: " + operation.associatedAction());
+          "Cannot execute operation '%s' on document [ID: %s]: current status '%s' does not allow this action."
+              .formatted(operation.associatedAction(), document.getId(), document.getStatus()));
     }
   }
 
   private void ensureOperationIsEligible(Document document) {
     if (!operation.isEligible().test(document)) {
       throw new UnsupportedOperationException(
-          "Operation not eligible: " + operation.associatedAction());
+          "Document [ID: %s] does not meet the minimal criteria to be processed via action: %s"
+              .formatted(document.getId(), operation.associatedAction()));
     }
   }
 }
