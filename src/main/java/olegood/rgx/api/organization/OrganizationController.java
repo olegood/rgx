@@ -62,10 +62,7 @@ public class OrganizationController {
   @DeleteMapping("/{organizationId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable Long organizationId) {
-    if (!repository.existsById(organizationId)) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Organization not found");
-    }
-    repository.deleteById(organizationId);
+    repository.delete(findOrThrow(organizationId));
   }
 
   private Organization findOrThrow(Long organizationId) {
