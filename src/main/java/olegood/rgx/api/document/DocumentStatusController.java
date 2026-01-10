@@ -17,8 +17,7 @@ public class DocumentStatusController {
   private final DocumentStatusHandler documentStatusHandler;
 
   @PutMapping
-  public void handleDocumentAction(
-      @PathVariable("documentId") Long id, @RequestParam DocumentAction action) {
-    documentStatusHandler.handleAction(id, action);
+  public void handleAction(@PathVariable Long documentId, @RequestParam DocumentAction action) {
+    documentStatusHandler.handleAction(documentId, action);
   }
 }

@@ -12,19 +12,19 @@ public record OperationDecorator(Operation operation) implements Operation {
 
   @Override
   public void execute(Document document) {
-    ensureOperationAllowed(document);
-    ensureOperationEligible(document);
+    ensureOperationIsAllowed(document);
+    ensureOperationIsEligible(document);
     operation.execute(document);
   }
 
-  private void ensureOperationAllowed(Document document) {
+  private void ensureOperationIsAllowed(Document document) {
     if (!document.isActionAllowed(operation.associatedAction())) {
       throw new UnsupportedOperationException(
           "Operation not allowed: " + operation.associatedAction());
     }
   }
 
-  private void ensureOperationEligible(Document document) {
+  private void ensureOperationIsEligible(Document document) {
     if (!operation.isEligible().test(document)) {
       throw new UnsupportedOperationException(
           "Operation not eligible: " + operation.associatedAction());

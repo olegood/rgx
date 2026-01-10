@@ -15,8 +15,8 @@ public class DocumentStatusHandler {
   private final Set<Operation> operations;
   private final DocumentRepository documentRepository;
 
-  public void handleAction(Long id, DocumentAction action) {
-    var document = documentRepository.findById(id).orElseThrow();
+  public void handleAction(Long documentId, DocumentAction action) {
+    var document = documentRepository.findById(documentId).orElseThrow();
     findOperationByAction(action).execute(document);
   }
 

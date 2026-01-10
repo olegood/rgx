@@ -24,7 +24,7 @@ class DocumentStatusControllerTest {
     var action = DocumentAction.APPROVE;
 
     // when
-    documentStatusController.handleDocumentAction(id, action);
+    documentStatusController.handleAction(id, action);
 
     // then
     verify(documentStatusHandler).handleAction(id, action);
