@@ -11,16 +11,21 @@ import static org.mockito.Mockito.verify;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentRepository;
+import olegood.rgx.event.document.DocumentSubmittedEvent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentStatusServiceImplTest {
 
   @Mock private DocumentRepository documentRepository;
+  @Mock private ApplicationEventPublisher events;
 
   @InjectMocks private DocumentStatusServiceImpl documentStatusService;
 
@@ -34,7 +39,10 @@ class DocumentStatusServiceImplTest {
 
     // then
     assertThat(document.getStatus()).isEqualTo(IN_REVIEW);
-    verify(documentRepository).save(document);
+
+    InOrder inOrder = Mockito.inOrder(documentRepository, events);
+    inOrder.verify(documentRepository).save(document);
+    inOrder.verify(events).publishEvent(new DocumentSubmittedEvent(document));
   }
 
   @Test
