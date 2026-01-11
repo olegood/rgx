@@ -28,7 +28,7 @@ public record OperationDecorator(Operation operation) implements Operation {
   private void ensureOperationIsEligible(Document document) {
     if (!operation.isEligible().test(document)) {
       throw new UnsupportedOperationException(
-          "Document [ID: %s] does not meet the minimal criteria to be processed via action: %s"
+          "Document [ID: %s] does not meet the minimal criteria to be processed via action: '%s'"
               .formatted(document.getId(), operation.associatedAction()));
     }
   }

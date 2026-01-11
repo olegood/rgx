@@ -62,7 +62,7 @@ class OperationDecoratorTest {
     assertThatExceptionOfType(UnsupportedOperationException.class)
         .isThrownBy(() -> submit.execute(document))
         .withMessage(
-            "Document [ID: 56] does not meet the minimal criteria to be processed via action: SUBMIT");
+            "Document [ID: 56] does not meet the minimal criteria to be processed via action: 'SUBMIT'");
   }
 
   @Test
