@@ -18,7 +18,7 @@ public record OperationDecorator(Operation operation) implements Operation {
   }
 
   private void ensureOperationIsAllowed(Document document) {
-    if (!document.isActionAllowed(operation.associatedAction())) {
+    if (!operation.isAllowed(document)) {
       throw new UnsupportedOperationException(
           "Cannot execute operation '%s' on document [ID: %s]: current status '%s' does not allow this action."
               .formatted(operation.associatedAction(), document.getId(), document.getStatus()));
@@ -26,7 +26,7 @@ public record OperationDecorator(Operation operation) implements Operation {
   }
 
   private void ensureOperationIsEligible(Document document) {
-    if (!operation.isEligible().test(document)) {
+    if (!operation.isEligible(document)) {
       throw new UnsupportedOperationException(
           "Document [ID: %s] does not meet the minimal criteria to be processed via action: '%s'"
               .formatted(document.getId(), operation.associatedAction()));

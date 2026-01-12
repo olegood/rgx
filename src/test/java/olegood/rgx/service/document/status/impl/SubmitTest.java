@@ -1,10 +1,10 @@
 package olegood.rgx.service.document.status.impl;
 
 import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
+import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.when;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.service.document.DocumentStatusService;
@@ -20,8 +20,6 @@ class SubmitTest {
 
   @Mock private DocumentStatusService documentStatusService;
 
-  @Mock private Document document;
-
   @InjectMocks private Submit submit;
 
   @Test
@@ -36,10 +34,10 @@ class SubmitTest {
   @Test
   void shouldReturnTrueWhenDocumentIsEligibleForSubmit() {
     // given
-    when(document.canBeSubmitted()).thenReturn(true);
+    var eligibleDocument = new Document().setStatus(DRAFT).setTitle("<title>");
 
     // when
-    boolean isEligible = submit.isEligible().test(document);
+    boolean isEligible = submit.isEligible(eligibleDocument);
 
     // then
     assertThat(isEligible).isTrue();
@@ -48,10 +46,10 @@ class SubmitTest {
   @Test
   void shouldReturnFalseWhenDocumentIsNotEligibleForSubmit() {
     // given
-    when(document.canBeSubmitted()).thenReturn(false);
+    var documentWithNoTitle = new Document().setStatus(DRAFT).setTitle(null);
 
     // when
-    boolean isEligible = submit.isEligible().test(document);
+    boolean isEligible = submit.isEligible(documentWithNoTitle);
 
     // then
     assertThat(isEligible).isFalse();
@@ -59,67 +57,57 @@ class SubmitTest {
 
   @Test
   void shouldSubmitDocumentWhenItIsEligibleForSubmit() {
+    // given
+    var eligibleDocument = new Document().setStatus(DRAFT).setTitle("<title>");
+
     // when
-    when(document.canBeSubmitted()).thenReturn(true);
+    submit.execute(eligibleDocument);
 
     // then
-    submit.execute(document);
-
-    // then
-    InOrder inOrder = inOrder(document, documentStatusService);
-    inOrder.verify(document).canBeSubmitted();
-    inOrder.verify(documentStatusService).submit(document);
-    inOrder.verify(document).canBeApprovedAutomatically();
-    inOrder.verify(documentStatusService, never()).approveAutomatically(document);
+    InOrder inOrder = inOrder(documentStatusService);
+    inOrder.verify(documentStatusService).submit(eligibleDocument);
+    inOrder.verify(documentStatusService, never()).approveAutomatically(eligibleDocument);
   }
 
   @Test
   void shouldNotSubmitDocumentWhenItIsNotEligibleForSubmit() {
+    // given
+    var documentWithNoTitle = new Document().setStatus(DRAFT).setTitle(null);
+
     // when
-    when(document.canBeSubmitted()).thenReturn(false);
+    submit.execute(documentWithNoTitle);
 
     // then
-    submit.execute(document);
-
-    // then
-    InOrder inOrder = inOrder(document, documentStatusService);
-    inOrder.verify(document).canBeSubmitted();
-    inOrder.verify(documentStatusService, never()).submit(document);
-    inOrder.verify(document).canBeApprovedAutomatically();
-    inOrder.verify(documentStatusService, never()).approveAutomatically(document);
+    InOrder inOrder = inOrder(documentStatusService);
+    inOrder.verify(documentStatusService, never()).submit(documentWithNoTitle);
+    inOrder.verify(documentStatusService, never()).approveAutomatically(documentWithNoTitle);
   }
 
   @Test
   void shouldAutomaticallyApproveWhenItCanBeApprovedAutomatically() {
-    // when
-    when(document.canBeSubmitted()).thenReturn(true);
-    when(document.canBeApprovedAutomatically()).thenReturn(true);
+    // given
+    var vipDocument = new Document().setStatus(DRAFT).setTitle("<title>").setOwner("VIP");
 
     // then
-    submit.execute(document);
+    submit.execute(vipDocument);
 
     // then
-    InOrder inOrder = inOrder(document, documentStatusService);
-    inOrder.verify(document).canBeSubmitted();
-    inOrder.verify(documentStatusService).submit(document);
-    inOrder.verify(document).canBeApprovedAutomatically();
-    inOrder.verify(documentStatusService).approveAutomatically(document);
+    InOrder inOrder = inOrder(documentStatusService);
+    inOrder.verify(documentStatusService).submit(vipDocument);
+    inOrder.verify(documentStatusService).approveAutomatically(vipDocument);
   }
 
   @Test
   void shouldNotAutomaticallyApproveWhenItCannotBeApprovedAutomatically() {
-    // when
-    when(document.canBeSubmitted()).thenReturn(true);
-    when(document.canBeApprovedAutomatically()).thenReturn(false);
+    // given
+    var regularDocument = new Document().setStatus(DRAFT).setTitle("<title>");
 
     // then
-    submit.execute(document);
+    submit.execute(regularDocument);
 
     // then
-    InOrder inOrder = inOrder(document, documentStatusService);
-    inOrder.verify(document).canBeSubmitted();
-    inOrder.verify(documentStatusService).submit(document);
-    inOrder.verify(document).canBeApprovedAutomatically();
-    inOrder.verify(documentStatusService, never()).approveAutomatically(document);
+    InOrder inOrder = inOrder(documentStatusService);
+    inOrder.verify(documentStatusService).submit(regularDocument);
+    inOrder.verify(documentStatusService, never()).approveAutomatically(regularDocument);
   }
 }

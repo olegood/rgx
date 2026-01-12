@@ -16,6 +16,6 @@ class OperationTest {
   @Test
   void anyOperationIsEligibleByDefault() {
     // expect
-    assertThat(operation.isEligible().test(new Document())).isTrue();
+    assertThat(operation.isEligible(new Document())).isTrue();
   }
 }

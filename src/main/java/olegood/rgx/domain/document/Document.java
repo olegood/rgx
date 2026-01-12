@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import olegood.rgx.domain.project.Project;
 import olegood.rgx.predicate.IsActionAllowed;
-import olegood.rgx.predicate.document.status.CanBeSubmitted;
 
 @Accessors(chain = true)
 @Data
@@ -47,15 +46,11 @@ public class Document {
     return ensure(new IsActionAllowed(action));
   }
 
-  public boolean canBeSubmitted() {
-    return ensure(new CanBeSubmitted());
-  }
-
   private boolean ensure(Predicate<Document> predicate) {
     return predicate.test(this);
   }
 
   public boolean canBeApprovedAutomatically() {
-    return false;
+    return "VIP".equals(owner);
   }
 }

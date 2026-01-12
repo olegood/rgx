@@ -1,6 +1,5 @@
 package olegood.rgx.service.document.status;
 
-import java.util.function.Predicate;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
 
@@ -10,7 +9,11 @@ public interface Operation {
 
   void execute(Document document);
 
-  default Predicate<Document> isEligible() {
-    return document -> true;
+  default boolean isAllowed(Document document) {
+    return document.isActionAllowed(associatedAction());
+  }
+
+  default boolean isEligible(Document document) {
+    return true;
   }
 }

@@ -71,7 +71,8 @@ class OperationDecoratorTest {
     var document = new Document().setStatus(DRAFT);
 
     when(operation.associatedAction()).thenReturn(TERMINATE);
-    when(operation.isEligible()).thenReturn(doc -> true);
+    when(operation.isAllowed(document)).thenCallRealMethod();
+    when(operation.isEligible(document)).thenReturn(true);
     var decorator = new OperationDecorator(operation);
 
     // when
