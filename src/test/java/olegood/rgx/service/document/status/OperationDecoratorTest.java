@@ -4,6 +4,7 @@ import static olegood.rgx.domain.document.DocumentAction.TERMINATE;
 import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -67,7 +68,7 @@ class OperationDecoratorTest {
 
   @Test
   void shouldDelegateExecutionIfValid() {
-    // given
+    // when
     var document = new Document().setStatus(DRAFT);
 
     when(operation.associatedAction()).thenReturn(TERMINATE);
@@ -75,10 +76,9 @@ class OperationDecoratorTest {
     when(operation.isEligible(document)).thenReturn(true);
     var decorator = new OperationDecorator(operation);
 
-    // when
-    decorator.execute(document);
-
     // then
+    assertThatNoException().isThrownBy(() -> decorator.execute(document));
+
     verify(operation).execute(document);
   }
 }
