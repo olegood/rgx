@@ -28,6 +28,7 @@ public class Submit implements Operation {
 
   @Override
   public void execute(Document document) {
+    // candidate for submission
     var documentForSubmission = Optional.of(document);
 
     // submit if it can be submitted
