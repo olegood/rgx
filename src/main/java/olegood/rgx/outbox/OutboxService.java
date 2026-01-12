@@ -1,7 +1,7 @@
 package olegood.rgx.outbox;
 
 import lombok.extern.slf4j.Slf4j;
-import olegood.rgx.event.document.DocumentSubmittedEvent;
+import olegood.rgx.event.document.DocumentSubmitted;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -11,7 +11,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class OutboxService {
 
   @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
-  public void onDocumentSubmitted(DocumentSubmittedEvent event) {
+  public void onDocumentSubmitted(DocumentSubmitted event) {
     log.info("Submitted document: {}", event.document().getId());
   }
 }

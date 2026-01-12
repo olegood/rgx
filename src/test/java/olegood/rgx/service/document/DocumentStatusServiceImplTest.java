@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentRepository;
-import olegood.rgx.event.document.DocumentSubmittedEvent;
+import olegood.rgx.event.document.DocumentSubmitted;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
@@ -42,7 +42,7 @@ class DocumentStatusServiceImplTest {
 
     InOrder inOrder = Mockito.inOrder(documentRepository, events);
     inOrder.verify(documentRepository).save(document);
-    inOrder.verify(events).publishEvent(new DocumentSubmittedEvent(document));
+    inOrder.verify(events).publishEvent(new DocumentSubmitted(document));
   }
 
   @Test
