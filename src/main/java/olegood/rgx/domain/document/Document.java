@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.function.Predicate;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import olegood.rgx.domain.project.Project;
@@ -43,14 +42,6 @@ public class Document {
   private String owner;
 
   public boolean isActionAllowed(DocumentAction action) {
-    return ensure(new IsActionAllowed(action));
-  }
-
-  private boolean ensure(Predicate<Document> predicate) {
-    return predicate.test(this);
-  }
-
-  public boolean canBeApprovedAutomatically() {
-    return "VIP".equals(owner);
+    return new IsActionAllowed(action).test(this);
   }
 }

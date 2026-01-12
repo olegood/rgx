@@ -27,12 +27,19 @@ public class Submit implements Operation {
 
   @Override
   public void execute(Document document) {
+    var documentForSubmission = Optional.of(document);
+
     // submit if it can be submitted
-    Optional.of(document).filter(this::isEligible).ifPresent(documentStatusService::submit);
+    documentForSubmission.filter(this::isEligible).ifPresent(documentStatusService::submit);
 
     // approve if it can be approved automatically
-    Optional.of(document)
-        .filter(Document::canBeApprovedAutomatically)
+    documentForSubmission
+        .filter(this::canBeApprovedAutomatically)
         .ifPresent(documentStatusService::approveAutomatically);
+  }
+
+  // todo: move the rule to an external predicate
+  public boolean canBeApprovedAutomatically(Document document) {
+    return "VIP".equals(document.getOwner());
   }
 }
