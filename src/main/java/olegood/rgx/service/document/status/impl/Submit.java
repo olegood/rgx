@@ -4,6 +4,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
+import olegood.rgx.predicate.document.status.CanBeApprovedAutomatically;
 import olegood.rgx.predicate.document.status.CanBeSubmitted;
 import olegood.rgx.service.document.DocumentStatusService;
 import olegood.rgx.service.document.status.Operation;
@@ -30,16 +31,11 @@ public class Submit implements Operation {
     var documentForSubmission = Optional.of(document);
 
     // submit if it can be submitted
-    documentForSubmission.filter(this::isEligible).ifPresent(documentStatusService::submit);
+    documentForSubmission.filter(new CanBeSubmitted()).ifPresent(documentStatusService::submit);
 
     // approve if it can be approved automatically
     documentForSubmission
-        .filter(this::canBeApprovedAutomatically)
+        .filter(new CanBeApprovedAutomatically())
         .ifPresent(documentStatusService::approveAutomatically);
-  }
-
-  // todo: move the rule to an external predicate
-  public boolean canBeApprovedAutomatically(Document document) {
-    return "VIP".equals(document.getOwner());
   }
 }
