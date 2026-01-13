@@ -1,6 +1,7 @@
 package olegood.rgx.mapper;
 
-import olegood.rgx.domain.OrganizationStatus;
+import java.util.List;
+import olegood.rgx.domain.Organization;
 
 public record OrganizationData(
     Long id,
@@ -12,4 +13,5 @@ public record OrganizationData(
     int founded,
     String industry,
     int numberOfEmployees,
-    OrganizationStatus status) {}
+    Organization.Status status,
+    List<EnrollmentData> enrollments) {}

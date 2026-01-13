@@ -3,7 +3,7 @@ package olegood.rgx.domain.organization.marker;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter(autoApply = true)
+@Converter
 public class MarkerTypeConverter implements AttributeConverter<MarkerType, String> {
 
   @Override

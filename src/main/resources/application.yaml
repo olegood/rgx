@@ -5,6 +5,7 @@ spring:
     jdbc:
       initialize-schema: always
   liquibase:
+    enabled: false
     change-log: classpath:db/changelog/db.changelog-master.yaml
   jackson:
     default-property-inclusion: non_null

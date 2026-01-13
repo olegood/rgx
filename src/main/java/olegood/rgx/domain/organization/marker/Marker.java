@@ -20,14 +20,14 @@ public class Marker {
   private Long id;
 
   @Convert(converter = MarkerTypeConverter.class)
-  @Column(name = "TYPE")
+  @Column(name = "TYPE", nullable = false)
   private MarkerType type;
 
   @Embedded private Age age;
 
   /**
-   * Checks whether the associated {@link Age} instance is active.
-   * The {@link Age} instance is considered active based on its start and end dates.
+   * Checks whether the associated {@link Age} instance is active. The {@link Age} instance is
+   * considered active based on its start and end dates.
    *
    * @return {@code true} if the associated {@link Age} instance is active, {@code false} otherwise.
    */

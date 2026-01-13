@@ -43,7 +43,7 @@ public class LoadDevDataJobConfig {
   public FlatFileItemReader<Organization> organizationDataItemReader() {
     return new FlatFileItemReaderBuilder<Organization>()
         .name("organizationDataItemReader")
-        .resource(new ClassPathResource("data/organizations-100.csv"))
+        .resource(new ClassPathResource("data/organizations.csv"))
         .delimited()
         .names(
             "Id",
