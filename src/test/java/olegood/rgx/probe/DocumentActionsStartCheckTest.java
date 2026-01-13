@@ -21,20 +21,21 @@ class DocumentActionsStartCheckTest {
   void shouldNotThrowExceptionWhenNumberOfOperationsMatchesNumberOfActions() {
     // when
     when(operations.size()).thenReturn(DocumentAction.values().length);
+    var check = new DocumentActionsStartCheck(operations);
 
     // then
-    assertThatNoException()
-        .isThrownBy(() -> new DocumentActionsStartCheck(operations).ensureActionsMatchOperations());
+    assertThatNoException().isThrownBy(check::ensureActionsMatchOperations);
   }
 
   @Test
   void shouldThrowExceptionWhenNumberOfOperationsDoesNotMatchNumberOfActions() {
     // when
     when(operations.size()).thenReturn(-1);
+    var check = new DocumentActionsStartCheck(operations);
 
     // then
     assertThatExceptionOfType(IllegalStateException.class)
-        .isThrownBy(() -> new DocumentActionsStartCheck(operations).ensureActionsMatchOperations())
+        .isThrownBy(check::ensureActionsMatchOperations)
         .withMessage("Number of operations does not match number of actions");
   }
 }

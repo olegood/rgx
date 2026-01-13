@@ -155,9 +155,10 @@ class MarkerTypeConverterTest {
   void shouldReturnNullWhenDatabaseValueIsNull() {
     // when
     String dbValue = null;
+    var converter = new MarkerTypeConverter();
 
     // then
-    assertThatThrownBy(() -> new MarkerTypeConverter().convertToEntityAttribute(dbValue))
+    assertThatThrownBy(() -> converter.convertToEntityAttribute(dbValue))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("Unknown marker type: null");
   }
@@ -165,10 +166,11 @@ class MarkerTypeConverterTest {
   @Test
   void shouldThrowExceptionForInvalidDatabaseValue() {
     // when
-    String dbValue = "InvalidValue";
+    var dbValue = "InvalidValue";
+    var converter = new MarkerTypeConverter();
 
     // then
-    assertThatThrownBy(() -> new MarkerTypeConverter().convertToEntityAttribute(dbValue))
+    assertThatThrownBy(() -> converter.convertToEntityAttribute(dbValue))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("Unknown marker type: InvalidValue");
   }
