@@ -30,12 +30,11 @@ class DocumentStatusHandlerTest {
     // when
     var document = new Document().setId(ID);
     when(documentRepository.findById(ID)).thenReturn(Optional.of(document));
+    var handler = new DocumentStatusHandler(emptySet(), documentRepository);
 
     // then
     assertThatExceptionOfType(UnsupportedOperationException.class)
-        .isThrownBy(
-            () ->
-                new DocumentStatusHandler(emptySet(), documentRepository).handleAction(ID, REOPEN))
+        .isThrownBy(() -> handler.handleAction(ID, REOPEN))
         .withMessage("Unknown action: REOPEN");
   }
 
