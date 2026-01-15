@@ -1,0 +1,3 @@
+#
+#Thu Jan 15 23:01:08 CET 2026
+classes\ that\ are\ annotated\ with\ @Entity\ should\ be\ annotated\ with\ @Table,\ because\ JPA\ entities\ must\ explicitly\ declare\ table\ mapping=f842dcda-cd78-4b3e-a088-2d2534407b02
