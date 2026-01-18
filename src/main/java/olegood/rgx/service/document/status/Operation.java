@@ -2,6 +2,7 @@ package olegood.rgx.service.document.status;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
+import olegood.rgx.domain.document.guard.IsActionAllowed;
 
 /**
  * Represents an operation that can be executed on a {@link Document}.
@@ -31,7 +32,7 @@ public interface Operation {
    * @return {@code true} if the associated action is allowed on the document, {@code false} otherwise
    */
   default boolean isAllowed(Document document) {
-    return document.isActionAllowed(associatedAction());
+    return new IsActionAllowed(associatedAction()).test(document);
   }
 
   /**

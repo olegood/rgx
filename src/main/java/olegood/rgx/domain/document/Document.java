@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import olegood.rgx.domain.project.Project;
-import olegood.rgx.predicate.IsActionAllowed;
 
 @Accessors(chain = true)
 @Data
@@ -40,8 +39,4 @@ public class Document {
 
   @Column(name = "OWNER")
   private String owner;
-
-  public boolean isActionAllowed(DocumentAction action) {
-    return new IsActionAllowed(action).test(this);
-  }
 }
