@@ -1,4 +1,4 @@
-package olegood.rgx.event.document;
+package olegood.rgx.domain.document.event;
 
 import olegood.rgx.domain.document.Document;
 

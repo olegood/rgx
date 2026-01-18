@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentRepository;
-import olegood.rgx.event.document.DocumentSubmitted;
+import olegood.rgx.domain.document.event.DocumentSubmitted;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;

@@ -1,7 +1,7 @@
-package olegood.rgx.outbox;
+package olegood.rgx.service.outbox;
 
 import lombok.extern.slf4j.Slf4j;
-import olegood.rgx.event.document.DocumentSubmitted;
+import olegood.rgx.domain.document.event.DocumentSubmitted;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
