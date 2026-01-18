@@ -1,0 +1,3 @@
+Method <olegood.rgx.domain.document.DocumentTest.initialStatusIsDraft()> calls method <org.junit.jupiter.api.Assertions.assertEquals(java.lang.Object, java.lang.Object)> in (DocumentTest.java:13)
+Method <olegood.rgx.domain.document.guard.IsActionAllowedTest.shouldReturnFalseIfDocumentIsNull()> calls method <org.junit.jupiter.api.Assertions.assertFalse(boolean)> in (IsActionAllowedTest.java:35)
+Method <olegood.rgx.domain.document.guard.IsActionAllowedTest.shouldReturnFalseIfDocumentStatusIsNull()> calls method <org.junit.jupiter.api.Assertions.assertFalse(boolean)> in (IsActionAllowedTest.java:41)
