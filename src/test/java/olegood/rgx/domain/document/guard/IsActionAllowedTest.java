@@ -4,7 +4,6 @@ import static olegood.rgx.domain.document.DocumentAction.APPROVE;
 import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
 import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import olegood.rgx.domain.document.Document;
 import org.junit.jupiter.api.Test;
@@ -32,12 +31,12 @@ class IsActionAllowedTest {
   @Test
   void shouldReturnFalseIfDocumentIsNull() {
     // expect
-    assertFalse(new IsActionAllowed(APPROVE).test(null));
+    assertThat(new IsActionAllowed(SUBMIT).test(null)).isFalse();
   }
 
   @Test
   void shouldReturnFalseIfDocumentStatusIsNull() {
     // expect
-    assertFalse(new IsActionAllowed(SUBMIT).test(new Document().setStatus(null)));
+    assertThat(new IsActionAllowed(SUBMIT).test(new Document().setStatus(null))).isFalse();
   }
 }
