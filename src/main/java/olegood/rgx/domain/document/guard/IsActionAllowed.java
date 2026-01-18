@@ -1,4 +1,4 @@
-package olegood.rgx.predicate;
+package olegood.rgx.domain.document.guard;
 
 import java.util.Optional;
 import java.util.function.Predicate;

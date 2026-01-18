@@ -1,4 +1,4 @@
-package olegood.rgx.predicate;
+package olegood.rgx.domain.document.guard;
 
 import static olegood.rgx.domain.document.DocumentAction.APPROVE;
 import static olegood.rgx.domain.document.DocumentAction.SUBMIT;

@@ -1,4 +1,4 @@
-package olegood.rgx.predicate.document.status;
+package olegood.rgx.domain.document.guard;
 
 import static java.util.stream.Collectors.toSet;
 

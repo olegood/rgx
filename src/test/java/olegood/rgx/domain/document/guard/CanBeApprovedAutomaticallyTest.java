@@ -1,4 +1,4 @@
-package olegood.rgx.predicate.document.status;
+package olegood.rgx.domain.document.guard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

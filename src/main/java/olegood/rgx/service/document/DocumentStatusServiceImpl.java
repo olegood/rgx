@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentRepository;
 import olegood.rgx.domain.document.DocumentStatus;
-import olegood.rgx.event.document.DocumentSubmitted;
+import olegood.rgx.domain.document.event.DocumentSubmitted;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
