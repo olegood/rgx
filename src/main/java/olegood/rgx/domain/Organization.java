@@ -21,6 +21,7 @@ import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import olegood.rgx.domain.organization.Enrollment;
+import olegood.rgx.domain.project.Project;
 
 @Accessors(chain = true)
 @Data
@@ -127,4 +128,7 @@ public class Organization {
   @OneToMany
   @JoinColumn(name = "ORGANIZATION_ID")
   private List<Enrollment> enrollments;
+
+  @OneToMany(mappedBy = "organization")
+  private List<Project> projects;
 }
