@@ -1,0 +1,20 @@
+meta {
+  name: Reject
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{host}}/api/documents/1/status?action=REJECT
+  body: none
+  auth: inherit
+}
+
+params:query {
+  action: REJECT
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

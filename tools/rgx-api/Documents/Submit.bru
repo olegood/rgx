@@ -1,0 +1,20 @@
+meta {
+  name: Submit
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{host}}/api/documents/1/status?action=SUBMIT
+  body: none
+  auth: inherit
+}
+
+params:query {
+  action: SUBMIT
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
