@@ -1,5 +1,7 @@
 package olegood.rgx.validation.engine;
 
+import static java.util.Collections.emptySet;
+
 import java.util.Collection;
 import lombok.Builder;
 import lombok.Singular;
@@ -13,4 +15,9 @@ import olegood.rgx.validation.rule.Rule;
  * @param <T> the type of the object that the validation rules will be applied to
  */
 @Builder
-public record ValidationProfile<T>(@Singular Collection<Rule<T>> rules) {}
+public record ValidationProfile<T>(@Singular Collection<Rule<T>> rules) {
+
+  public static <T> ValidationProfile<T> empty() {
+    return new ValidationProfile<>(emptySet());
+  }
+}
