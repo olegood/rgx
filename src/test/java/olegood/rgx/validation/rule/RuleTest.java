@@ -45,8 +45,7 @@ class RuleTest {
     Optional<Violation> result = rule.check(target);
 
     // then: the violation is returned with the correct message
-    assertThat(result).isPresent();
-    assertThat(result.get().message()).isEqualTo("Violation message");
+    assertThat(result).contains(new Violation("Violation message"));
   }
 
   @Test
@@ -66,7 +65,6 @@ class RuleTest {
     Optional<Violation> result = rule.check(target);
 
     // then: the violation is returned with the correct message
-    assertThat(result).isPresent();
-    assertThat(result.get().message()).isEqualTo("Target cannot be null");
+    assertThat(result).contains(new Violation("Target cannot be null"));
   }
 }
