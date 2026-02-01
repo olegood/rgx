@@ -1,4 +1,4 @@
-package olegood.rgx.validation.engine;
+package olegood.rgx.validation.engine.profile;
 
 import java.util.Collection;
 import lombok.Getter;
@@ -8,5 +8,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public final class ValidationProfileException extends RuntimeException {
 
-  private final Collection<String> messages;
+  private final Collection<String> violations;
 }
