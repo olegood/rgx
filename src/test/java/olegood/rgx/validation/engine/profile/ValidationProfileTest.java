@@ -3,84 +3,80 @@ package olegood.rgx.validation.engine.profile;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-import java.util.Collections;
 import java.util.Set;
 import olegood.rgx.validation.rule.Rule;
 import org.junit.jupiter.api.Test;
 
 class ValidationProfileTest {
-    
-    @Test
-    void shouldReturnRulesWhenMatcherSucceeds() {
-        // given
-        Rule<String> ruleMock = mock(Rule.class);
-        Set<Rule<String>> rules = Set.of(ruleMock);
-        ValidationProfile<String> profile = new ValidationProfile<>(s -> s.contains("valid"), rules);
 
-        // when
-        Set<Rule<String>> result = profile.getRulesFor("valid input");
+  @Test
+  void shouldReturnRulesWhenMatcherSucceeds() {
+    // given
+    Rule<String> ruleMock = mock(Rule.class);
+    Set<Rule<String>> rules = Set.of(ruleMock);
+    ValidationProfile<String> profile = new ValidationProfile<>(s -> s.contains("valid"), rules);
 
-        // then
-        assertThat(result).isEqualTo(rules);
-    }
+    // when
+    Set<Rule<String>> result = profile.getRulesFor("valid input");
 
-    @Test
-    void shouldReturnEmptySetWhenMatcherFails() {
-        // given
-        Rule<String> ruleMock = mock(Rule.class);
-        Set<Rule<String>> rules = Set.of(ruleMock);
-        ValidationProfile<String> profile = new ValidationProfile<>(s -> s.contains("valid"), rules);
+    // then
+    assertThat(result).isEqualTo(rules);
+  }
 
-        // when
-        Set<Rule<String>> result = profile.getRulesFor("incorrect input");
+  @Test
+  void shouldReturnEmptySetWhenMatcherFails() {
+    // given
+    Rule<String> ruleMock = mock(Rule.class);
+    Set<Rule<String>> rules = Set.of(ruleMock);
+    ValidationProfile<String> profile = new ValidationProfile<>(s -> s.contains("valid"), rules);
 
-        // then
-        assertThat(result).isEmpty();
-    }
+    // when
+    Set<Rule<String>> result = profile.getRulesFor("incorrect input");
 
-    @Test
-    void shouldAlwaysReturnEmptySetWithEmptyValidationProfile() {
-        // given
-        ValidationProfile<String> profile = ValidationProfile.empty();
+    // then
+    assertThat(result).isEmpty();
+  }
 
-        // when
-        Set<Rule<String>> result = profile.getRulesFor("any input");
+  @Test
+  void shouldAlwaysReturnEmptySetWithEmptyValidationProfile() {
+    // given
+    ValidationProfile<String> profile = ValidationProfile.empty();
 
-        // then
-        assertThat(result).isEmpty();
-    }
+    // when
+    Set<Rule<String>> result = profile.getRulesFor("any input");
 
-    @Test
-    void shouldRespectCustomMatcherWithConditionalRules() {
-        // given
-        Rule<String> mockRule1 = mock(Rule.class);
-        Rule<String> mockRule2 = mock(Rule.class);
-        ValidationProfile<String> profile = ValidationProfile.withConditionalRules(
-                s -> s.startsWith("A"),
-                mockRule1,
-                mockRule2
-        );
+    // then
+    assertThat(result).isEmpty();
+  }
 
-        // when
-        Set<Rule<String>> resultMatching = profile.getRulesFor("Apple");
-        Set<Rule<String>> resultNonMatching = profile.getRulesFor("Banana");
+  @Test
+  void shouldRespectCustomMatcherWithConditionalRules() {
+    // given
+    Rule<String> mockRule1 = mock(Rule.class);
+    Rule<String> mockRule2 = mock(Rule.class);
+    ValidationProfile<String> profile =
+        ValidationProfile.withConditionalRules(s -> s.startsWith("A"), mockRule1, mockRule2);
 
-        // then
-        assertThat(resultMatching).containsExactlyInAnyOrder(mockRule1, mockRule2);
-        assertThat(resultNonMatching).isEmpty();
-    }
+    // when
+    Set<Rule<String>> resultMatching = profile.getRulesFor("Apple");
+    Set<Rule<String>> resultNonMatching = profile.getRulesFor("Banana");
 
-    @Test
-    void shouldAlwaysReturnRulesWithWithRulesFactoryMethod() {
-        // given
-        Rule<String> mockRule1 = mock(Rule.class);
-        Rule<String> mockRule2 = mock(Rule.class);
-        ValidationProfile<String> profile = ValidationProfile.withRules(mockRule1, mockRule2);
+    // then
+    assertThat(resultMatching).containsExactlyInAnyOrder(mockRule1, mockRule2);
+    assertThat(resultNonMatching).isEmpty();
+  }
 
-        // when
-        Set<Rule<String>> result = profile.getRulesFor("any input");
+  @Test
+  void shouldAlwaysReturnRulesWithWithRulesFactoryMethod() {
+    // given
+    Rule<String> mockRule1 = mock(Rule.class);
+    Rule<String> mockRule2 = mock(Rule.class);
+    ValidationProfile<String> profile = ValidationProfile.withRules(mockRule1, mockRule2);
 
-        // then
-        assertThat(result).containsExactlyInAnyOrder(mockRule1, mockRule2);
-    }
+    // when
+    Set<Rule<String>> result = profile.getRulesFor("any input");
+
+    // then
+    assertThat(result).containsExactlyInAnyOrder(mockRule1, mockRule2);
+  }
 }
