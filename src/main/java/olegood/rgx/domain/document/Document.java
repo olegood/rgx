@@ -11,6 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import olegood.rgx.domain.document.guard.CanBeApprovedAutomatically;
+import olegood.rgx.domain.document.guard.IsActionAllowed;
 import olegood.rgx.domain.project.Project;
 
 @Accessors(chain = true)
@@ -39,4 +41,12 @@ public class Document {
 
   @Column(name = "OWNER")
   private String owner;
+
+  public boolean isAllowed(DocumentAction action) {
+    return new IsActionAllowed(action).test(this);
+  }
+
+  public boolean canBeApprovedAutomatically() {
+    return new CanBeApprovedAutomatically().test(this);
+  }
 }

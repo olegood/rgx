@@ -1,42 +1,37 @@
 package olegood.rgx.service.document.status.impl;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
-import olegood.rgx.domain.document.guard.CanBeApprovedAutomatically;
-import olegood.rgx.domain.document.guard.CanBeSubmitted;
 import olegood.rgx.service.document.DocumentStatusService;
-import olegood.rgx.service.document.status.Operation;
+import olegood.rgx.service.document.status.Command;
+import olegood.rgx.validation.engine.profile.ValidationProfile;
+import olegood.rgx.validation.rule.impl.document.HasOwner;
+import olegood.rgx.validation.rule.impl.document.HasTitle;
+import olegood.rgx.validation.rule.impl.document.IsSubmitReady;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class Submit implements Operation {
+public class Submit extends Command {
 
   private final DocumentStatusService documentStatusService;
 
   @Override
-  public DocumentAction associatedAction() {
+  public DocumentAction action() {
     return DocumentAction.SUBMIT;
   }
 
   @Override
-  public boolean isEligible(Document document) {
-    return new CanBeSubmitted().test(document);
+  public ValidationProfile<Document> validationProfile() {
+    return ValidationProfile.withRules(new IsSubmitReady(), new HasTitle(), new HasOwner());
   }
 
   @Override
-  public void execute(Document document) {
-    // candidate for submission
-    var documentForSubmission = Optional.of(document);
-
-    // submit if it can be submitted
-    documentForSubmission.filter(new CanBeSubmitted()).ifPresent(documentStatusService::submit);
-
-    // approve if it can be approved automatically
-    documentForSubmission
-        .filter(new CanBeApprovedAutomatically())
-        .ifPresent(documentStatusService::approveAutomatically);
+  public void accept(Document document) {
+    documentStatusService.submit(document);
+    if (document.canBeApprovedAutomatically()) {
+      documentStatusService.approveAutomatically(document);
+    }
   }
 }

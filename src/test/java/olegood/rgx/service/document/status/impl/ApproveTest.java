@@ -20,9 +20,9 @@ class ApproveTest {
   @InjectMocks private Approve approve;
 
   @Test
-  void associatedActionIsApprove() {
+  void actionIsApprove() {
     // when
-    var action = approve.associatedAction();
+    var action = approve.action();
 
     // then
     assertThat(action).isEqualTo(APPROVE);
@@ -34,7 +34,7 @@ class ApproveTest {
     var document = new Document();
 
     // then
-    approve.execute(document);
+    approve.accept(document);
 
     // then
     verify(documentStatusService).approve(document);

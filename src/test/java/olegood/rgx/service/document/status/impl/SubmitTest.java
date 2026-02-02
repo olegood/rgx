@@ -3,11 +3,13 @@ package olegood.rgx.service.document.status.impl;
 import static olegood.rgx.domain.document.DocumentAction.SUBMIT;
 import static olegood.rgx.domain.document.DocumentStatus.DRAFT;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.service.document.DocumentStatusService;
+import olegood.rgx.validation.engine.profile.ValidationProfileException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
@@ -23,37 +25,37 @@ class SubmitTest {
   @InjectMocks private Submit submit;
 
   @Test
-  void associatedActionIsSubmit() {
+  void actionIsSubmit() {
     // when
-    var action = submit.associatedAction();
+    var action = submit.action();
 
     // then
     assertThat(action).isEqualTo(SUBMIT);
   }
 
-  @Test
-  void shouldReturnTrueWhenDocumentIsEligibleForSubmit() {
-    // given
-    var eligibleDocument = new Document().setStatus(DRAFT).setTitle("<title>");
-
-    // when
-    boolean isEligible = submit.isEligible(eligibleDocument);
-
-    // then
-    assertThat(isEligible).isTrue();
-  }
-
-  @Test
-  void shouldReturnFalseWhenDocumentIsNotEligibleForSubmit() {
-    // given
-    var documentWithNoTitle = new Document().setStatus(DRAFT).setTitle(null);
-
-    // when
-    boolean isEligible = submit.isEligible(documentWithNoTitle);
-
-    // then
-    assertThat(isEligible).isFalse();
-  }
+  //  @Test
+  //  void shouldReturnTrueWhenDocumentIsEligibleForSubmit() {
+  //    // given
+  //    var eligibleDocument = new Document().setStatus(DRAFT).setTitle("<title>");
+  //
+  //    // when
+  //    boolean isEligible = submit.isEligible(eligibleDocument);
+  //
+  //    // then
+  //    assertThat(isEligible).isTrue();
+  //  }
+  //
+  //  @Test
+  //  void shouldReturnFalseWhenDocumentIsNotEligibleForSubmit() {
+  //    // given
+  //    var documentWithNoTitle = new Document().setStatus(DRAFT).setTitle(null);
+  //
+  //    // when
+  //    boolean isEligible = submit.isEligible(documentWithNoTitle);
+  //
+  //    // then
+  //    assertThat(isEligible).isFalse();
+  //  }
 
   @Test
   void shouldSubmitDocumentWhenItIsEligibleForSubmit() {
@@ -61,7 +63,7 @@ class SubmitTest {
     var eligibleDocument = new Document().setStatus(DRAFT).setTitle("<title>");
 
     // when
-    submit.execute(eligibleDocument);
+    submit.accept(eligibleDocument);
 
     // then
     InOrder inOrder = inOrder(documentStatusService);
@@ -71,13 +73,17 @@ class SubmitTest {
 
   @Test
   void shouldNotSubmitDocumentWhenItIsNotEligibleForSubmit() {
-    // given
+    // when
     var documentWithNoTitle = new Document().setStatus(DRAFT).setTitle(null);
 
-    // when
-    submit.execute(documentWithNoTitle);
-
     // then
+    assertThatExceptionOfType(ValidationProfileException.class)
+        .isThrownBy(() -> submit.execute(documentWithNoTitle))
+        .satisfies(
+            exception ->
+                assertThat(exception.getViolations())
+                    .contains("Document must have a title.", "Document must have an owner."));
+
     InOrder inOrder = inOrder(documentStatusService);
     inOrder.verify(documentStatusService, never()).submit(documentWithNoTitle);
     inOrder.verify(documentStatusService, never()).approveAutomatically(documentWithNoTitle);
@@ -89,7 +95,7 @@ class SubmitTest {
     var vipDocument = new Document().setStatus(DRAFT).setTitle("<title>").setOwner("VIP");
 
     // then
-    submit.execute(vipDocument);
+    submit.accept(vipDocument);
 
     // then
     InOrder inOrder = inOrder(documentStatusService);
@@ -103,7 +109,7 @@ class SubmitTest {
     var regularDocument = new Document().setStatus(DRAFT).setTitle("<title>");
 
     // then
-    submit.execute(regularDocument);
+    submit.accept(regularDocument);
 
     // then
     InOrder inOrder = inOrder(documentStatusService);

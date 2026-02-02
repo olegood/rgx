@@ -1,7 +1,9 @@
 package olegood.rgx.api;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
+import olegood.rgx.validation.engine.profile.ValidationProfileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,5 +24,12 @@ public class RestExceptionHandler {
                 error ->
                     error.getDefaultMessage() != null ? error.getDefaultMessage() : "Invalid value",
                 (existing, replacement) -> existing));
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(ValidationProfileException.class)
+  public Map<String, Collection<String>> handleValidationProfileException(
+      ValidationProfileException ex) {
+    return Map.of("violations", ex.getViolations());
   }
 }

@@ -43,10 +43,7 @@ class DocumentStatusHandlerTest {
     // given
     var document = new Document().setId(ID);
     when(documentRepository.findById(ID)).thenReturn(Optional.of(document));
-
-    when(submit.associatedAction()).thenCallRealMethod();
-    when(submit.isAllowed(document)).thenCallRealMethod();
-    when(submit.isEligible(document)).thenReturn(true);
+    when(submit.action()).thenCallRealMethod();
 
     // when
     new DocumentStatusHandler(Set.of(submit), documentRepository).handleAction(ID, SUBMIT);

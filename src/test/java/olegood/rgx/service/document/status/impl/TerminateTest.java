@@ -20,9 +20,9 @@ class TerminateTest {
   @InjectMocks private Terminate terminate;
 
   @Test
-  void associatedActionIsTerminate() {
+  void actionIsTerminate() {
     // when
-    var action = terminate.associatedAction();
+    var action = terminate.action();
 
     // then
     assertThat(action).isEqualTo(TERMINATE);

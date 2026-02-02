@@ -20,9 +20,9 @@ class RejectTest {
   @InjectMocks private Reject reject;
 
   @Test
-  void associatedActionIsReject() {
+  void actionIsReject() {
     // when
-    var action = reject.associatedAction();
+    var action = reject.action();
 
     // then
     assertThat(action).isEqualTo(REJECT);
@@ -34,7 +34,7 @@ class RejectTest {
     var document = new Document();
 
     // then
-    reject.execute(document);
+    reject.accept(document);
 
     // then
     verify(documentStatusService).reject(document);

@@ -4,22 +4,22 @@ import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.domain.document.DocumentAction;
 import olegood.rgx.service.document.DocumentStatusService;
-import olegood.rgx.service.document.status.Operation;
+import olegood.rgx.service.document.status.Command;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class Reopen implements Operation {
+public class Reopen extends Command {
 
   private final DocumentStatusService documentStatusService;
 
   @Override
-  public DocumentAction associatedAction() {
+  public DocumentAction action() {
     return DocumentAction.REOPEN;
   }
 
   @Override
-  public void execute(Document document) {
+  public void accept(Document document) {
     documentStatusService.reopen(document);
   }
 }

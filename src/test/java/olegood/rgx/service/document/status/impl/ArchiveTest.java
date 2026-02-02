@@ -20,9 +20,9 @@ class ArchiveTest {
   @InjectMocks private Archive archive;
 
   @Test
-  void associatedActionIsArchive() {
+  void actionIsArchive() {
     // when
-    var action = archive.associatedAction();
+    var action = archive.action();
 
     // then
     assertThat(action).isEqualTo(ARCHIVE);
@@ -34,7 +34,7 @@ class ArchiveTest {
     var document = new Document();
 
     // then
-    archive.execute(document);
+    archive.accept(document);
 
     // then
     verify(documentStatusService).archive(document);
