@@ -8,6 +8,7 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Immutable;
 
 @AnalyzeClasses(packages = "olegood.rgx")
 class AnnotationRulesTest {
@@ -21,4 +22,15 @@ class AnnotationRulesTest {
               .should()
               .beAnnotatedWith(Table.class)
               .because("JPA entities must explicitly declare table mapping"));
+
+  @ArchTest
+  static final ArchRule entity_views_must_be_immutable =
+      classes()
+          .that()
+          .areAnnotatedWith(Entity.class)
+          .and()
+          .haveSimpleNameEndingWith("View")
+          .should()
+          .beAnnotatedWith(Immutable.class)
+          .because("Entity views represent read-only database views and must be immutable");
 }
