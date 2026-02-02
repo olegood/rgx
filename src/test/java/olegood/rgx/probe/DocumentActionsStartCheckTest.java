@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Set;
 import olegood.rgx.domain.document.DocumentAction;
-import olegood.rgx.service.document.status.Operation;
+import olegood.rgx.service.document.status.Command;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -15,27 +15,27 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class DocumentActionsStartCheckTest {
 
-  @Mock private Set<Operation> operations;
+  @Mock private Set<Command> commands;
 
   @Test
-  void shouldNotThrowExceptionWhenNumberOfOperationsMatchesNumberOfActions() {
+  void shouldNotThrowExceptionWhenNumberOfCommandsMatchesNumberOfActions() {
     // when
-    when(operations.size()).thenReturn(DocumentAction.values().length);
-    var check = new DocumentActionsStartCheck(operations);
+    when(commands.size()).thenReturn(DocumentAction.values().length);
+    var check = new DocumentActionsStartCheck(commands);
 
     // then
-    assertThatNoException().isThrownBy(check::ensureActionsMatchOperations);
+    assertThatNoException().isThrownBy(check::ensureCommandsMatchActions);
   }
 
   @Test
-  void shouldThrowExceptionWhenNumberOfOperationsDoesNotMatchNumberOfActions() {
+  void shouldThrowExceptionWhenNumberOfCommandsDoesNotMatchNumberOfActions() {
     // when
-    when(operations.size()).thenReturn(-1);
-    var check = new DocumentActionsStartCheck(operations);
+    when(commands.size()).thenReturn(-1);
+    var check = new DocumentActionsStartCheck(commands);
 
     // then
     assertThatExceptionOfType(IllegalStateException.class)
-        .isThrownBy(check::ensureActionsMatchOperations)
-        .withMessage("Number of operations does not match number of actions");
+        .isThrownBy(check::ensureCommandsMatchActions)
+        .withMessage("Number of commands does not match number of actions");
   }
 }

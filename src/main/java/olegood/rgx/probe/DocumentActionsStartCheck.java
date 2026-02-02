@@ -3,7 +3,7 @@ package olegood.rgx.probe;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import olegood.rgx.domain.document.DocumentAction;
-import olegood.rgx.service.document.status.Operation;
+import olegood.rgx.service.document.status.Command;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class DocumentActionsStartCheck {
 
-  private final Set<Operation> operations;
+  private final Set<Command> commands;
 
   @EventListener(ApplicationStartedEvent.class)
-  void ensureActionsMatchOperations() {
-    if (operations.size() != DocumentAction.values().length) {
-      throw new IllegalStateException("Number of operations does not match number of actions");
+  void ensureCommandsMatchActions() {
+    if (commands.size() != DocumentAction.values().length) {
+      throw new IllegalStateException("Number of commands does not match number of actions");
     }
   }
 }
