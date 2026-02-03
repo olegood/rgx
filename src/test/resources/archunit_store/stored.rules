@@ -1,3 +1,6 @@
 #
-#Sun Jan 18 22:17:31 CET 2026
+#Tue Feb 03 18:02:51 CET 2026
 classes\ that\ are\ annotated\ with\ @Entity\ should\ be\ annotated\ with\ @Table,\ because\ JPA\ entities\ must\ explicitly\ declare\ table\ mapping=f842dcda-cd78-4b3e-a088-2d2534407b02
+classes\ that\ are\ interfaces\ and\ are\ public\ and\ reside\ outside\ of\ package\ '..test..'\ and\ have\ simple\ name\ not\ ending\ with\ 'Dto'\ and\ have\ simple\ name\ not\ ending\ with\ 'Repository'\ should\ have\ Javadoc,\ because\ Public\ interfaces\ should\ be\ documented\ with\ Javadoc=10f7d98d-4004-48ca-933b-242be553b3c7
+classes\ that\ are\ public\ and\ are\ not\ member\ classes\ and\ reside\ outside\ of\ package\ '..test..'\ and\ have\ simple\ name\ not\ ending\ with\ 'Dto'\ and\ have\ simple\ name\ not\ ending\ with\ 'Repository'\ should\ have\ Javadoc,\ because\ Public\ classes\ should\ be\ documented\ with\ Javadoc=69bcc7af-58c4-4917-99ab-6e5d22bcb468
+methods\ that\ are\ public\ and\ are\ declared\ in\ classes\ that\ are\ public\ and\ are\ declared\ in\ classes\ that\ reside\ outside\ of\ package\ '..test..'\ and\ are\ declared\ in\ classes\ that\ have\ simple\ name\ not\ ending\ with\ 'Dto'\ and\ are\ declared\ in\ classes\ that\ have\ simple\ name\ not\ ending\ with\ 'Repository'\ and\ are\ not\ declared\ in\ java.lang.Object\ should\ have\ Javadoc,\ because\ Public\ methods\ should\ be\ documented\ with\ Javadoc=7abf72f9-e645-4025-b50b-0e374ff876ab

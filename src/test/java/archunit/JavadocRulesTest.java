@@ -2,11 +2,11 @@ package archunit;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
+import static com.tngtech.archunit.library.freeze.FreezingArchRule.freeze;
 
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaMember;
 import com.tngtech.archunit.junit.AnalyzeClasses;
-import com.tngtech.archunit.junit.ArchIgnore;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
@@ -14,63 +14,65 @@ import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 import java.util.Optional;
 
-@ArchIgnore(reason = "Not applicable at the moment")
 @AnalyzeClasses(packages = "olegood.rgx")
 public class JavadocRulesTest {
 
   @ArchTest
   static final ArchRule public_classes_should_have_javadoc =
-      classes()
-          .that()
-          .arePublic()
-          .and()
-          .areNotMemberClasses()
-          .and()
-          .resideOutsideOfPackage("..test..")
-          .and()
-          .haveSimpleNameNotEndingWith("Dto")
-          .and()
-          .haveSimpleNameNotEndingWith("Repository")
-          .should(classHasJavadoc())
-          .because("Public classes should be documented with Javadoc");
+      freeze(
+          classes()
+              .that()
+              .arePublic()
+              .and()
+              .areNotMemberClasses()
+              .and()
+              .resideOutsideOfPackage("..test..")
+              .and()
+              .haveSimpleNameNotEndingWith("Dto")
+              .and()
+              .haveSimpleNameNotEndingWith("Repository")
+              .should(classHasJavadoc())
+              .because("Public classes should be documented with Javadoc"));
 
   @ArchTest
   static final ArchRule public_interfaces_should_have_javadoc =
-      classes()
-          .that()
-          .areInterfaces()
-          .and()
-          .arePublic()
-          .and()
-          .resideOutsideOfPackage("..test..")
-          .and()
-          .haveSimpleNameNotEndingWith("Dto")
-          .and()
-          .haveSimpleNameNotEndingWith("Repository")
-          .should(classHasJavadoc())
-          .because("Public interfaces should be documented with Javadoc");
+      freeze(
+          classes()
+              .that()
+              .areInterfaces()
+              .and()
+              .arePublic()
+              .and()
+              .resideOutsideOfPackage("..test..")
+              .and()
+              .haveSimpleNameNotEndingWith("Dto")
+              .and()
+              .haveSimpleNameNotEndingWith("Repository")
+              .should(classHasJavadoc())
+              .because("Public interfaces should be documented with Javadoc"));
 
   @ArchTest
   static final ArchRule public_methods_should_have_javadoc =
-      methods()
-          .that()
-          .arePublic()
-          .and()
-          .areDeclaredInClassesThat()
-          .arePublic()
-          .and()
-          .areDeclaredInClassesThat()
-          .resideOutsideOfPackage("..test..")
-          .and()
-          .areDeclaredInClassesThat()
-          .haveSimpleNameNotEndingWith("Dto")
-          .and()
-          .areDeclaredInClassesThat()
-          .haveSimpleNameNotEndingWith("Repository")
-          .and()
-          .areNotDeclaredIn(Object.class)
-          .should(memberHasJavadoc())
-          .because("Public methods should be documented with Javadoc");
+      freeze(
+          methods()
+              .that()
+              .arePublic()
+              .and()
+              .areDeclaredInClassesThat()
+              .arePublic()
+              .and()
+              .areDeclaredInClassesThat()
+              .resideOutsideOfPackage("..test..")
+              .and()
+              .areDeclaredInClassesThat()
+              .haveSimpleNameNotEndingWith("Dto")
+              .and()
+              .areDeclaredInClassesThat()
+              .haveSimpleNameNotEndingWith("Repository")
+              .and()
+              .areNotDeclaredIn(Object.class)
+              .should(memberHasJavadoc())
+              .because("Public methods should be documented with Javadoc"));
 
   private static ArchCondition<JavaClass> classHasJavadoc() {
     return new ArchCondition<>("have Javadoc") {
