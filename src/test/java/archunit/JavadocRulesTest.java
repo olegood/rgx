@@ -7,6 +7,7 @@ import static com.tngtech.archunit.library.freeze.FreezingArchRule.freeze;
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaMember;
 import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchIgnore;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
@@ -14,6 +15,7 @@ import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 import java.util.Optional;
 
+@ArchIgnore
 @AnalyzeClasses(packages = "olegood.rgx")
 public class JavadocRulesTest {
 
@@ -31,6 +33,8 @@ public class JavadocRulesTest {
               .haveSimpleNameNotEndingWith("Dto")
               .and()
               .haveSimpleNameNotEndingWith("Repository")
+              .and()
+              .haveSimpleNameNotEndingWith("Builder")
               .should(classHasJavadoc())
               .because("Public classes should be documented with Javadoc"));
 

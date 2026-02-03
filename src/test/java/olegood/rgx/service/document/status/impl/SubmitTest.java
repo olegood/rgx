@@ -7,9 +7,9 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 
+import olegood.rgx.api.ApplicationException;
 import olegood.rgx.domain.document.Document;
 import olegood.rgx.service.document.DocumentStatusService;
-import olegood.rgx.validation.engine.profile.ValidationProfileException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
@@ -77,12 +77,14 @@ class SubmitTest {
     var documentWithNoTitle = new Document().setStatus(DRAFT).setTitle(null);
 
     // then
-    assertThatExceptionOfType(ValidationProfileException.class)
+    assertThatExceptionOfType(ApplicationException.class)
         .isThrownBy(() -> submit.execute(documentWithNoTitle))
+        .withMessage("Validation failed")
         .satisfies(
             exception ->
-                assertThat(exception.getViolations())
-                    .contains("Document must have a title.", "Document must have an owner."));
+                assertThat(exception.getErrors())
+                    .containsExactlyInAnyOrder(
+                        "Document must have a title.", "Document must have an owner."));
 
     InOrder inOrder = inOrder(documentStatusService);
     inOrder.verify(documentStatusService, never()).submit(documentWithNoTitle);

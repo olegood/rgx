@@ -1,9 +1,8 @@
 package olegood.rgx.api;
 
-import java.util.Collection;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
-import olegood.rgx.validation.engine.profile.ValidationProfileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,9 +26,12 @@ public class RestExceptionHandler {
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(ValidationProfileException.class)
-  public Map<String, Collection<String>> handleValidationProfileException(
-      ValidationProfileException ex) {
-    return Map.of("violations", ex.getViolations());
+  @ExceptionHandler(ApplicationException.class)
+  public ApplicationExceptionResponse handleApplicationException(ApplicationException ex) {
+    return ApplicationExceptionResponse.builder()
+        .correlatedId(UUID.randomUUID())
+        .message(ex.getMessage())
+        .errors(ex.getErrors())
+        .build();
   }
 }
